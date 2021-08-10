@@ -1,5 +1,7 @@
 
 
+import jdk.swing.interop.SwingInterOpUtils;
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -19,8 +21,6 @@ public class Calculator {
         int num2 ;
         int result;
 
-        char operation = ' ';
-
         String [] numArabic = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
 
         String[] numRoman = {"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"};
@@ -36,21 +36,7 @@ public class Calculator {
 
         char[] under_char = userInput.toCharArray();
 
-        for (char i : under_char) {
-
-            if (i == '+') {
-                operation = '+';
-            }
-            if (i == '-') {
-                operation = '-';
-            }
-            if (i == '*') {
-                operation = '*';
-            }
-            if (i == '/') {
-                operation = '/';
-            }
-        }
+        char operation = signOfOperation(under_char );
 
         String [] arrString = userInput.split("[+-/*]");
 
@@ -58,6 +44,8 @@ public class Calculator {
                 "не удовлетворяет заданию - два операнда и один оператор (+, -, /, *)");
 
         if (arrString.length < 2) throw new Exception("Строка не является математической операцией");
+
+
 
         for (String a: numArabic) {
             if (a.equals(arrString[0]))
@@ -159,10 +147,38 @@ public class Calculator {
     }
 
     private static String convertNumToRoman (int numArabian) {
-        String[] roman = {"O", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X",
-                "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX"      };
+        String[] roman = {"O", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX",
+                "XXI", "XXII", "XXIII", "XXIV", "XXV", "XXVI", "XXVII", "XXVIII", "XXIX", "XXX", "XXXI", "XXXII", "XXXIII", "XXXIV", "XXXV", "XXXVI", "XXXVII", "XXXVIII", "XXXIX", "XL",
+                "XLI", "XLII", "XLIII", "XLIV", "XLV", "XLVI", "XLVII", "XLVIII", "XLIX", "L", "LI", "LII", "LIII", "LIV", "LV", "LVI", "LVII", "LVIII", "LIX", "LX",
+                "LXI", "LXII", "LXIII", "LXIV", "LXV", "LXVI", "LXVII", "LXVIII", "LXIX", "LXX",
+                "LXXI", "LXXII", "LXXIII", "LXXIV", "LXXV", "LXXVI", "LXXVII", "LXXVIII", "LXXIX", "LXXX",
+                "LXXXI", "LXXXII", "LXXXIII", "LXXXIV", "LXXXV", "LXXXVI", "LXXXVII", "LXXXVIII", "LXXXIX", "XC",
+                "XCI", "XCII", "XCIII", "XCIV", "XCV", "XCVI", "XCVII", "XCVIII", "XCIX", "C"
+        };
         final String s = roman[numArabian];
         return s;
+    }
+
+    private static char signOfOperation(char [] arr){
+
+        char operator = ' ';
+
+        for (char i : arr) {
+
+            if (i == '+') {
+                operator = '+';
+            }
+            if (i == '-') {
+                operator = '-';
+            }
+            if (i == '*') {
+                operator = '*';
+            }
+            if (i == '/') {
+                operator = '/';
+            }
+        }
+        return operator;
     }
 
 
